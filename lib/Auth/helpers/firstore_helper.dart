@@ -1,16 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
- import 'package:firebase_auth/firebase_auth.dart';
- import 'package:gsg2_app/Auth/models/register_request.dart';
+import 'package:gsg2_app/Auth/models/contre.dart';
+import 'package:gsg2_app/Auth/models/register_request.dart';
 import 'package:gsg2_app/Auth/models/user_model.dart';
 import 'package:gsg2_app/Auth/ui/register_page.dart';
- 
-class FirestorHelper{
-  FirestorHelper._();
-  static FirestorHelper firestorHelper = FirestorHelper._();
+
+class FirestoreHelper {
+  FirestoreHelper._();
+  static FirestoreHelper firestoreHelper = FirestoreHelper._();
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
- addUserToFirestore(RegisterRequest registerRequest) async {
+  addUserToFirestore(RegisterRequest registerRequest) async {
     try {
-      // await firebaseFirestore.collection('Users').add(registerRequest.toMap());
       await firebaseFirestore
           .collection('Users')
           .doc(registerRequest.id)
@@ -26,14 +25,28 @@ class FirestorHelper{
 
     print(documentSnapshot.data());
   }
-
-  Future<List<UserModel>> getAllUsersFromFirestore() async {
-    QuerySnapshot<Map<String, dynamic>> querySnapshot =
+ Future<List<UserModel>> getAllUsersFromFirestore() async {
+    QuerySnapshot querySnapshot =
         await firebaseFirestore.collection('Users').get();
-    List<QueryDocumentSnapshot<Map<String, dynamic>>> docs = querySnapshot.docs;
+    List<QueryDocumentSnapshot> docs = querySnapshot.docs;
     List<UserModel> users =
         docs.map((e) => UserModel.fromMap(e.data())).toList();
-    print(users.length);
+
     return users;
   }
+  Future<List<CountryModel>> getAllCountries() async {
+    try {
+      QuerySnapshot querySnapshot =
+          await firebaseFirestore.collection('countries').get();
+      List<CountryModel> countries = querySnapshot.docs.map((e) {
+        Map map = e.data();
+        map['id'] = e.id;
+        return CountryModel.fromJson(map);
+      }).toList();
+      return countries;
+    } on Exception catch (e) {
+      // TODO
+    }
+  }
+
 }

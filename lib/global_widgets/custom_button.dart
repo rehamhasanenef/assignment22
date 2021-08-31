@@ -15,8 +15,10 @@ class CustomButton extends StatelessWidget {
         color: Colors.green,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
         onPressed: function,
-        child: Text(label , style:TextStyle(  color: Colors.white,fontSize: 16) ,
-          ),
+        child: Text(
+          label,
+          style: TextStyle(color: Colors.white, fontSize: 16),
+        ),
       ),
     );
   }

@@ -8,6 +8,9 @@ import 'package:gsg2_app/Auth/ui/register_page.dart';
 import 'package:gsg2_app/Auth/ui/login_page .dart';
 import 'package:gsg2_app/services/routes_helper.dart';
 import 'package:gsg2_app/Auth/ui/widgets/reset_password_page.dart';
+import 'package:gsg2_app/chats/home_page.dart';
+import 'package:gsg2_app/chats/profille_page.dart';
+import 'package:gsg2_app/chats/Ueser_page.dart';
 
 
 void main() {
@@ -19,6 +22,10 @@ void main() {
             Login.routeName: (context) => Login(),
             Register.routeName: (context) => Register(),
             ResetPasswordPage.routeName: (context) => ResetPasswordPage(),
+             HomePage.routeName: (context) => HomePage(),
+              ProfilaPage.routeName: (context) => ProfilaPage(),
+               UerePage.routeName: (context) => UerePage(),
+
             
           },
       navigatorKey: RouteHelper.routeHelper.navKey,

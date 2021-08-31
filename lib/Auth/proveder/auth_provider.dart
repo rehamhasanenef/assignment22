@@ -24,17 +24,18 @@ class AuthProvider extends ChangeNotifier {
 
   register() async {
     try {
-      UserCredential userCredential = await AuthHelper.authHelper
+      
+          UserCredential userCredential = await AuthHelper.authHelper
           .signup(emailController.text, passwordController.text);
-      RegisterRequest registerRequest = RegisterRequest(
-          id: userCredential.user.uid,
+          RegisterRequest registerRequest = RegisterRequest(
+            id: userCredential.user.uid,
           city: cituController.text,
           country: countryController.text,
           email: emailController.text,
           fName: firstNameController.text,
           lName: lastNameController.text,
           password: passwordController.text);
-      await FirestorHelper.firestorHelper.addUserToFirestore(registerRequest);
+       FirestoreHelper.firestoreHelper.addUserToFirestore(registerRequest);
       await AuthHelper.authHelper.verifyEmail();
       await AuthHelper.authHelper.logout();
       tabController.animateTo(1);
@@ -49,7 +50,7 @@ class AuthProvider extends ChangeNotifier {
   login() async {
     UserCredential userCredinial = await AuthHelper.authHelper
         .signin(emailController.text, passwordController.text);
-    FirestorHelper.firestorHelper
+    FirestoreHelper.firestoreHelper
         .getUserFromFirestore(userCredinial.user.uid);
     RouteHelper.routeHelper.goToPageWithReplacement(HomePage.routeName);
  
