@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class UerePage extends StatelessWidget {
-  static final routeName = 'home';
+  static final routeName = 'users';
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

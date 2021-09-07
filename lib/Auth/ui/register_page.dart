@@ -5,6 +5,7 @@ import 'package:gsg2_app/Auth/ui/widgets/custom_textField.dart';
 import 'package:gsg2_app/global_widgets/custom_button.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gsg2_app/Auth/ui/login_page .dart';
+import 'package:gsg2_app/Auth/models/contre.dart';
 
 
 
@@ -21,9 +22,18 @@ class Register extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                SizedBox(height: size.height * 0.1),
-              Image.asset(
-                "assets/images/imegL.png",
-                height: size.height * 0.35,
+               GestureDetector(
+                onTap: () {
+                  provider.selectFile();
+                },
+                child: Container(
+                  height: 200,
+                  width: 200,
+                  color: Colors.grey,
+                  child: provider.file == null
+                      ? Container()
+                      : Image.file(provider.file, fit: BoxFit.cover),
+                ),
               ),
               Text(
                 "Welcome !", textAlign: TextAlign.center, 
@@ -46,6 +56,54 @@ class Register extends StatelessWidget {
               CustomTextfield('City', provider.cituController),
               CustomTextfield('Email', provider.emailController),
               CustomTextfield('Password', provider.passwordController),
+              provider.countries == null
+                  ? Container()
+                  : Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: DropdownButton<CountryModel>(
+                        isExpanded: true,
+                        underline: Container(),
+                        value: provider.selectedCountry,
+                        onChanged: (x) {
+                          provider.selectCountry(x);
+                        },
+                        items: provider.countries.map((e) {
+                          return DropdownMenuItem<CountryModel>(
+                            child: Text(e.name.toString()),
+                            value: e,
+                          );
+                        }).toList(),
+                      ),
+                    ),
+              provider.countries == null
+                  ? Container()
+                  : Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: DropdownButton<dynamic>(
+                        isExpanded: true,
+                        underline: Container(),
+                        value: provider.selectedCity,
+                        onChanged: (x) {
+                          provider.selectCity(x);
+                        },
+                        items: provider.cites.map((e) {
+                          return DropdownMenuItem<dynamic>(
+                            child: Text(e),
+                            value: e,
+                          );
+                        }).toList(),
+                      ),
+                    ),
               SizedBox(height: size.height * 0.03),
               CustomButton(provider.register, 'Register'),
               SizedBox(height: size.height * 0.03),

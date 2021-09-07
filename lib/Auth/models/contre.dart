@@ -1,11 +1,11 @@
 class CountryModel {
   String id;
   String name;
-  List<dynamic> cities;
-  CountryModel(this.name, this.cities);
+  List<dynamic> cites;
+  CountryModel(this.name, this.cites);
   CountryModel.fromJson(Map map) {
     this.id = map['id'];
     this.name = map['name'];
-    this.cities = map['cities'];
+    this.cites = map['cites'];
   }
 }

@@ -19,13 +19,14 @@ class FirestoreHelper {
     }
   }
 
-  getUserFromFirestore(String userId) async {
+ Future<UserModel> getUserFromFirestore(String userId) async {
     DocumentSnapshot documentSnapshot =
         await firebaseFirestore.collection('Users').doc(userId).get();
 
-    print(documentSnapshot.data());
+    return UserModel.fromMap(documentSnapshot.data());
   }
- Future<List<UserModel>> getAllUsersFromFirestore() async {
+
+  Future<List<UserModel>> getAllUsersFromFirestore() async {
     QuerySnapshot querySnapshot =
         await firebaseFirestore.collection('Users').get();
     List<QueryDocumentSnapshot> docs = querySnapshot.docs;
@@ -34,6 +35,7 @@ class FirestoreHelper {
 
     return users;
   }
+
   Future<List<CountryModel>> getAllCountries() async {
     try {
       QuerySnapshot querySnapshot =
@@ -48,5 +50,4 @@ class FirestoreHelper {
       // TODO
     }
   }
-
 }
